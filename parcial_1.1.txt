@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+
+struct Nodo {
+    int dato;
+    Nodo* siguiente;
+};
+
+void insertar(Nodo*& lista, int n) {
+    Nodo* nuevo = new Nodo();
+    nuevo->dato = n;
+    nuevo->siguiente = lista;
+    lista = nuevo;
+}
+
+void mostrar(Nodo* lista) {
+    int i = 0;
+    while (lista != NULL) {
+        cout << "Posicion " << i << ": " << lista->dato << "\n";
+        lista = lista->siguiente;
+        i++;
+    }
+}
+
+void eliminar(Nodo*& lista, int n) {
+    Nodo* aux_borrar;
+    Nodo* anterior = NULL;
+
+    aux_borrar = lista;
+
+    while (aux_borrar != NULL) {
+        if (aux_borrar->dato == n) {
+            if (anterior == NULL) {
+                lista = lista->siguiente;
+                delete aux_borrar;
+                aux_borrar = lista;
+            } else {
+                anterior->siguiente = aux_borrar->siguiente;
+                delete aux_borrar;
+                aux_borrar = anterior->siguiente;
+            }
+        } else {
+            anterior = aux_borrar;
+            aux_borrar = aux_borrar->siguiente;
+        }
+    }
+}
+
+
+void editar(Nodo*& lista, int n, int nuevo) {
+    Nodo* actual = lista;
+    while (actual != NULL) {
+        if (actual->dato == n) {
+            actual->dato = nuevo;
+        }
+        actual = actual->siguiente;
+    }
+}
+
+int main() {
+    Nodo* lista = NULL;
+    int dato, nuevo, opcion;
+
+    do {
+        cout << "\n1. Ingresar numero\n";
+        cout << "2. Mostrar numeros\n";
+        cout << "3. Editar numero\n";
+        cout << "4. Eliminar numero\n";
+        cout << "5. Salir\n";
+        cout << "\nElige una opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "Ingrese un numero: ";
+                cin >> dato;
+                insertar(lista, dato);
+                break;
+            case 2:
+                mostrar(lista);
+                break;
+            case 3:
+                cout << "Ingrese el numero a editar: ";
+                cin >> dato;
+                cout << "Ingrese el nuevo numero: ";
+                cin >> nuevo;
+                editar(lista, dato, nuevo);
+                break;
+            case 4:
+                cout << "Ingrese el numero a eliminar: ";
+                cin >> dato;
+                eliminar(lista, dato);
+                break;
+            case 5:
+                cout << "Saliendo...\n";
+                break;
+            default:
+                cout << "Opcion invalida\n";
+        }
+    } while (opcion != 5);
+
+    return 0;
+}

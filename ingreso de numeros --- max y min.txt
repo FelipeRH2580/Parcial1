@@ -1,0 +1,37 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+    short max = 0; short min = 10000; float suma = 0; short num;
+    float prom;
+
+    cout<<"Cuantos numeros deseas ingresar: "; cin>>num;
+
+    for(float i = 1; i <= num; i++) {
+        int mensaje;
+
+        cout<<"Digita el numero que deseas ingresar o '0' si deseas salir: ";
+        cin>>mensaje;
+
+        if(mensaje == 0) {
+            return 0;
+        }
+        else {
+            if(mensaje <= min) {
+                min = mensaje;
+            }
+
+            if(mensaje >= max) {
+                max = mensaje;
+            }
+
+            suma = suma + mensaje;
+        }
+
+        prom = suma / i;
+    }
+
+    cout<<"El numero mayor es "<<max<<", el numero menor es: "<<min<<" y el promedio es: "<<prom;
+
+    return 0;
+}

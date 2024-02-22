@@ -1,0 +1,69 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+    srand(time(0)); 
+
+    int matriz[3][3];
+    int maxFila[3] = {0};
+    int minFila[3] = {100}; 
+    int maxColumna[3] = {0};
+    int minColumna[3] = {100}; 
+    double promedioFila[3] = {0};
+    double promedioColumna[3] = {0};
+
+   
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            matriz[i][j] = rand() % 100; 
+            promedioFila[i] += matriz[i][j];
+            if(matriz[i][j] > maxFila[i]) {
+                maxFila[i] = matriz[i][j];
+            }
+            if(matriz[i][j] < minFila[i]) {
+                minFila[i] = matriz[i][j];
+            }
+        }
+        promedioFila[i] /= 3.0; 
+    }
+
+
+    for(int j=0; j<3; j++) {
+        for(int i=0; i<3; i++) {
+            promedioColumna[j] += matriz[i][j];
+            if(matriz[i][j] > maxColumna[j]) {
+                maxColumna[j] = matriz[i][j];
+            }
+            if(matriz[i][j] < minColumna[j]) {
+                minColumna[j] = matriz[i][j];
+            }
+        }
+        promedioColumna[j] /= 3.0; 
+    }
+
+ 
+    cout << "La matriz es:\n";
+    for(int i=0; i<3; i++) {
+        for(int j=0; j<3; j++) {
+            cout <<"|"<< matriz[i][j] << " "<<"|";
+        }
+        cout << "\n";
+    }
+
+
+    for(int i=0; i<3; i++) {
+        cout << "El numero mayor en la fila " << i+1 << " es: " << maxFila[i] << endl;
+        scout << "El numero menor en la fila " << i+1 << " es: " << minFila[i] << endl;
+        cout << "El promedio de la fila " << i+1 << " es: " << promedioFila[i] << endl<< endl;
+    }
+    for(int j=0; j<3; j++) {
+        cout << "El numero mayor en la columna " << j+1 << " es: " << maxColumna[j] << endl;
+        cout << "El numero menor en la columna " << j+1 << " es " << minColumna[j] << endl;
+        cout << "El promedio de la columna " << j+1 << " es: " << promedioColumna[j] << endl<< endl;
+    }
+
+    return 0;
+}
